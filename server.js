@@ -1,5 +1,6 @@
 const express = require("express");
 const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const PORT = 3000;
@@ -15,7 +16,7 @@ const json =
 
 
 app.get("/", function(req, res){
-    return res.json(json);
+    res.sendFile(path.join(__dirname, "public/index.html"))
 });
 
 app.get("/notes", function(req, res){
@@ -26,3 +27,5 @@ app.get("/notes", function(req, res){
 app.listen(PORT, function(){
     console.log("http://localhost:" + PORT);
 });
+
+// return res.json(json);
