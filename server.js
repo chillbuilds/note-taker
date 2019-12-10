@@ -4,6 +4,7 @@ const path = require("path");
 const app = express();
 const port = 8800;
 const db = require("./db/db.json");
+var id = 1;
 // const port = process.env.PORT || 3000;
 
 const dbData = JSON.parse(fs.readFileSync(path.join(__dirname, "/db/db.json"),(err, data)=>{
@@ -45,16 +46,19 @@ app.get("/notes", function(req,res){
     return res.json(dbData);
  })
 
+app.post("/api/notes", function(req, res){
+    var note = req.body;
+    console.log(note);
+    note.id = id;
+    dbData.push(note);
+    dbUpdate(dbData);
+    id = id + 1;
+    return res.json(dbData);
+});
 
-// app.post("/api/notes", function(req, res){
-//     var newNote = req.body;
-//     newNote.routeName = newNote.title.replace(/\s+/g, "").toLowerCase();
-//     notes.push(newNote);
-//     res.json(newNote);
-// });
+
 
 //Listener
 app.listen(port, function(){
     console.log("http://localhost:"+port);
 });
-
