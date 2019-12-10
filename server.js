@@ -2,9 +2,8 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const app = express();
-const port = 3000;
 const db = require("./db/db.json");
-// const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 const dbData = JSON.parse(fs.readFileSync(path.join(__dirname, "/db/db.json"),(err, data)=>{
     if (err) throw err;
