@@ -11,11 +11,8 @@ const dbData = JSON.parse(fs.readFileSync(path.join(__dirname, "/db/db.json"),(e
  }));
 
 const dbUpdate = dbData => {
-        let filtered = dbData.filter(function(input) {
-           return input != null;
-        });
         fs.writeFileSync(path.join(__dirname, "/db/db.json"),
-        JSON.stringify(filtered),
+        JSON.stringify(dbData),
         err => {
            if (err) throw err;
         })}
