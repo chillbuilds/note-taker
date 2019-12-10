@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const app = express();
-const port = 8800;
+const port = 3000;
 const db = require("./db/db.json");
 // const port = process.env.PORT || 3000;
 
@@ -55,11 +55,13 @@ app.post("/api/notes", function(req, res){
 });
 
 app.delete('/api/notes/:id', (req, res) => {
-    let id = req.params.id;
-    if(id === 1){
-        delete dbData[id];
-    }else{
-    delete dbData[id -1];}
+    const id = req.params.id;
+    var interval = 1;
+    dbData.splice(`${id - 1}`, 1);
+    for(var i = 0; i < dbData.length; i++){
+        dbData[i].id = interval;
+        interval = interval + 1;
+    }
     dbUpdate(dbData);
     res.send(dbData);
 });
